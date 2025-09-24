@@ -12,7 +12,7 @@ interface ReviewsProps {
   reviews?: ReviewData[];
 }
 
-const defaultReviews: ReviewData[] = [
+export const defaultReviews: ReviewData[] = [
   {
     rating: 5,
     title: "Best app ever!",
@@ -47,7 +47,7 @@ const defaultReviews: ReviewData[] = [
   },
 ];
 
-const Reviews: React.FC<ReviewsProps> = ({ reviews = defaultReviews }) => {
+export const Reviews: React.FC<ReviewsProps> = ({ reviews = defaultReviews }) => {
   return (
     <section className="py-24 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
@@ -63,5 +63,3 @@ const Reviews: React.FC<ReviewsProps> = ({ reviews = defaultReviews }) => {
     </section>
   );
 };
-
-export default Reviews;
