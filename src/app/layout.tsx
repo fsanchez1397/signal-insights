@@ -22,15 +22,17 @@ export default function RootLayout({
 	return (
 		<html lang="en" suppressHydrationWarning className={`${geist.variable}`}>
 			<body>
-				<ThemeProvider attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange>
-<Header/>
-				{children}
-				<Footer/>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					<Header />
+					{children}
+					<Footer />
 				</ThemeProvider>
-				</body>
+			</body>
 		</html>
 	);
 }

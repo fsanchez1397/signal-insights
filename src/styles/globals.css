@@ -8,9 +8,13 @@
   /* Your default theme */
   --background: white;
   --foreground: black;
+  --text-primary: black;
+  --text-accent: #EF4444;
 }
 
 [data-theme='dark'] {
   --background: black;
   --foreground: white;
+  --text-primary: white;
+  --text-accent: #FFFFFF;
 }
