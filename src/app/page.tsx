@@ -9,11 +9,13 @@ import { Reviews } from "@/components/Reviews";
 import Section from "@/components/Section";
 import { FcDecision } from "react-icons/fc";
 import { defaultReviews } from "@/components/Reviews";
+import Banner from "@/components/Banner";
 
 export default function HomePage() {
 	return (
 		<main className="flex min-h-screen flex-col items-center justify-center ">
 			<Hero />
+			<Banner/>
 			<p>Your Time, Well Spent</p>
 			<Accordion />
 			<p id="join">Customers</p>
