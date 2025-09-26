@@ -2,7 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/constants";
 export default function Hero() {
 	return (
-		<section className="text-center my-32 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
+		<section className="py-12 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
 			<p className="text-sm text-gray-600 dark:text-gray-300 mb-4 font-light">
 				{siteConfig.siteWide.mainEyebrow}
 			</p>
@@ -13,7 +13,7 @@ export default function Hero() {
 				{siteConfig.siteWide.mainSubHeader}
 			</p>
 
-			<div className="flex justify-center space-x-6">
+			<div className="flex space-x-6">
 				<Link
 					href="#join"
 					className="bg-black text-white dark:bg-white dark:text-black px-5 py-2 rounded-md text-base font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition duration-300"

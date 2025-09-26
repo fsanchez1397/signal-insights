@@ -23,6 +23,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 					isOpen ? "bg-black dark:bg-gray-900" : "bg-black dark:bg-gray-900"
 				}`}
 			>
+				
 				<button
 					className="w-full text-left p-4 flex justify-between items-center"
 					onClick={toggleOpen}
@@ -88,7 +89,10 @@ const Accordion: React.FC<AccordionProps> = ({
 	};
 
 	return (
-		<div className="w-[90%]">
+		<div className="w-[90%] py-12 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
+			<h2 className="font-sans text-3xl tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-primary dark:text-white mb-6">
+								What to know
+							</h2>
 			{items.map((item, index) => (
 				<AccordionItem
 					key={index}

@@ -1,42 +1,36 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
-
-const Download: React.FC = () => (
-  <section className="container mx-auto py-24 px-4 md:px-6">
+interface DownloadProps {
+  src: string
+}
+const Download = ({src}: DownloadProps) => (
+  <section className="container mx-auto py-12 md:px-6">
     <div className="flex flex-col md:flex-row items-center gap-8">
-      <div className="w-full md:w-1/2 order-1 p-4 flex justify-center md:justify-start items-center">
+      <div className="w-full md:w-1/2 order-1 pl-4 py-0 pr-0 flex justify-center md:justify-start items-center">
         <Image
-          src="/products/phone1.png"
+          src={src}
           alt="Financial app interface"
           width={500}
           height={500}
-          className="w-1/2 h-auto mx-auto md:mx-0"
+          className="w-full h-auto mx-auto md:mx-0"
         />
       </div>
-      <div className="w-full md:w-1/2 order-2 flex justify-center md:justify-end">
+      <div className="w-full px-4 md:w-1/2 order-2 flex justify-center md:justify-end">
         <div className="flex flex-col justify-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-4">
-            Download our app
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-gray-900 dark:text-white mb-4">
+            Why Signal Insights?
           </h2>
           <p className="text-xl text-gray-800 dark:text-gray-300 mb-6 font-light">
-            Download the state of the art app and start saving time and money. More to come.
-          </p>
+            A platform that streamlines your workflow. No longer need to send an e-mail, check linkedin, open your ATS and set up a meeting. With Signal Insights you can manage your vetted candidates all in one place!          </p>
           <div className="flex space-x-4">
             <Link
-              href="#"
+              href="#info"
               className="download-button bg-black dark:bg-white text-white dark:text-black px-5 py-2 rounded-md text-base flex items-center space-x-2 transition-colors duration-200"
             >
-              <FaApple className="text-2xl" />
-              <span>App Store</span>
+              <span>Learn More</span>
             </Link>
-            <Link
-              href="#"
-              className="download-button bg-black dark:bg-white text-white dark:text-black px-5 py-2 rounded-md text-base flex items-center space-x-2 transition-colors duration-200"
-            >
-              <FaGooglePlay className="text-2xl" />
-              <span>Google Play</span>
-            </Link>
+          
           </div>
         </div>
       </div>
