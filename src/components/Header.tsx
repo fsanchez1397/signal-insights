@@ -1,6 +1,7 @@
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
 import { siteConfig } from "@/constants";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 export default function Header() {
 	return (
