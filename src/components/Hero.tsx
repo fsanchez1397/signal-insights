@@ -15,10 +15,10 @@ export default function Hero() {
 
 			<div className="flex space-x-6">
 				<Link
-					href="#join"
+					href={siteConfig.siteWide.cta.href}
 					className="bg-black text-white dark:bg-white dark:text-black px-5 py-2 rounded-md text-base font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition duration-300"
 				>
-					{siteConfig.siteWide.cta}
+					{siteConfig.siteWide.cta.text}
 				</Link>
 			</div>
 		</section>

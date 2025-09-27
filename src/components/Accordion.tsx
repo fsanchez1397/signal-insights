@@ -23,7 +23,6 @@ const AccordionItem: React.FC<AccordionItemProps> = ({
 					isOpen ? "bg-black dark:bg-gray-900" : "bg-black dark:bg-gray-900"
 				}`}
 			>
-				
 				<button
 					className="w-full text-left p-4 flex justify-between items-center"
 					onClick={toggleOpen}
@@ -64,14 +63,9 @@ const defaultAccordionItems = [
 			"Stop endlessly applying into a black hole. With Signal Insights, your profile is more than just a resume; it's a high-signal beacon. Our platform ensures you're discoverable to recruiters who are actively seeking your specific skills, all while respecting your privacy. Get discovered faster and land your dream role without the cold-applying grind.",
 	},
 	{
-		title: "Easy to use",
+		title: "For Clients: Eliminate Uncertainty, Gain Clarity.",
 		content:
-			"Our platform is designed to be user-friendly and easy to use. We want to provide a seamless workflow experience so that you can focus on what matters.",
-	},
-	{
-		title: "Focus on what matters",
-		content:
-			"The hiring process is full of unnecessary steps. We're here to remove the clutter and build a platform based on trust. Whether you're a recruiter seeking top-tier talent or a candidate looking for your next big opportunity, Signal Insights helps you bypass the noise and focus on what's most important: making meaningful connections that lead to great hires and rewarding careers.",
+			"Stop relying on fragmented feedback. Clients get a dedicated, easy-to-use workspace to interview, review recruiter notes, and leave definitive Approved, Declined, or Pending status updates. Foster alignment with your recruiting partners and ensure every decision is documented and clear, minimizing hiring mistakes.",
 	},
 ];
 
@@ -91,8 +85,8 @@ const Accordion: React.FC<AccordionProps> = ({
 	return (
 		<div className="w-[90%] py-12 mx-4 sm:mx-8 md:mx-16 lg:mx-24">
 			<h2 className="font-sans text-3xl tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-primary dark:text-white mb-6">
-								What to know
-							</h2>
+				How It Helps You
+			</h2>
 			{items.map((item, index) => (
 				<AccordionItem
 					key={index}
