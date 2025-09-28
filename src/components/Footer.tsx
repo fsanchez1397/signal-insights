@@ -1,32 +1,35 @@
-import { AiOutlineFacebook, AiOutlineX, AiOutlineGithub, AiOutlineLinkedin, AiOutlineInstagram } from "react-icons/ai";
-
+import { AiOutlineX, AiOutlineLinkedin } from "react-icons/ai";
+import { siteConfig } from "@/constants";
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+	const currentYear = new Date().getFullYear();
 
-  return (
-    <footer className="bg-white border-t border-gray-100 dark:bg-black shadow-sm text-gray-400 py-6 dark:border-t-0 dark:border-gray-800">
-      <div className="container mx-auto px-4 flex flex-wrap justify-center sm:justify-between items-center text-sm">
-        <p className="ml-4">&copy; {currentYear} Your Company Name. All rights reserved.</p>
-        <div className="flex space-x-4 mt-2 mr-4 sm:mt-0">
-          <a href="#" aria-label="Facebook" className="hover:text-gray-300">
-            <AiOutlineFacebook className="w-5 h-5" />
-          </a>
-          <a href="#" aria-label="LinkedIn" className="hover:text-gray-300">
-            <AiOutlineLinkedin className="w-5 h-5" />
-          </a>
-          <a href="#" aria-label="Instagram" className="hover:text-gray-300">
-            <AiOutlineInstagram className="w-5 h-5" />
-          </a>
-          <a href="#" aria-label="X (formerly Twitter)" className="hover:text-gray-300">
-            <AiOutlineX className="w-5 h-5" />
-          </a>
-          <a href="#" aria-label="GitHub" className="hover:text-gray-300">
-            <AiOutlineGithub className="w-5 h-5" />
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
+	return (
+		<footer className="border-gray-100 border-t bg-white py-6 text-gray-400 shadow-sm dark:border-gray-800 dark:border-t-0 dark:bg-black">
+			<div className="container mx-auto flex flex-wrap items-center justify-center px-4 text-sm sm:justify-between">
+				<p className="ml-4">
+					&copy; {currentYear} {siteConfig.siteWide.siteTitle}. All rights
+					reserved.
+				</p>
+				<div className="mt-2 mr-4 flex space-x-4 sm:mt-0">
+					<a
+						href={siteConfig.socials.linkedIn}
+						aria-label="LinkedIn"
+						className="hover:text-gray-300"
+					>
+						<AiOutlineLinkedin className="h-5 w-5" />
+					</a>
+
+					<a
+						href={siteConfig.socials.x}
+						aria-label="X (formerly Twitter)"
+						className="hover:text-gray-300"
+					>
+						<AiOutlineX className="h-5 w-5" />
+					</a>
+				</div>
+			</div>
+		</footer>
+	);
 };
 
 export default Footer;

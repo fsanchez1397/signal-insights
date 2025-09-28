@@ -12,14 +12,14 @@ const FeatureCard = ({ src, title, description }: FeatureCardProps) => {
 				alt="Silhouette of professionals in a blue background"
 				width={250}
 				height={250}
-				className="object-cover -translate-x-[20%]"
+				className="-translate-x-[20%] object-cover"
 				sizes="100vw"
 				priority
 			/>
-			<h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">
+			<h3 className="mb-2 font-semibold text-gray-800 text-xl dark:text-white">
 				{title}
 			</h3>
-			<p className="text-gray-600 dark:text-gray-300 font-light">
+			<p className="font-light text-gray-600 dark:text-gray-300">
 				{description}
 			</p>
 		</div>
