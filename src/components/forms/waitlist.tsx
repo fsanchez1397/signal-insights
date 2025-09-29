@@ -62,7 +62,7 @@ export default function WaitlistForm() {
 				</div>
 
 				<div>
-					<label htmlFor="linkedin" className="block mb-1 font-medium">
+					<label htmlFor="linkedin" className="mb-1 block font-medium">
 						LinkedIn URL (optional)
 					</label>
 					<input
@@ -96,16 +96,19 @@ export default function WaitlistForm() {
 					</select>
 				</div>
 
-				{/* Recruiter-specific */}
 				{role === "Recruiter" && (
 					<>
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="recruiter_roles_per_month"
+								className="mb-1 block font-medium"
+							>
 								How many roles do you hire per month?
 							</label>
 							<select
+								id="recruiter_roles_per_month"
 								name="recruiter_roles_per_month"
-								className="w-full border rounded p-2"
+								className="w-full rounded border p-2"
 							>
 								<option>1–5</option>
 								<option>6–15</option>
@@ -114,13 +117,17 @@ export default function WaitlistForm() {
 						</div>
 
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="recruiter_top_roles"
+								className="mb-1 block font-medium"
+							>
 								What 2 roles are you hiring for the most?
 							</label>
 							<select
+								id="recruiter_top_roles"
 								name="recruiter_top_roles"
 								multiple
-								className="w-full border rounded p-2"
+								className="w-full rounded border p-2"
 							>
 								<option>Data Analyst</option>
 								<option>ML Engineer</option>
@@ -131,13 +138,17 @@ export default function WaitlistForm() {
 						</div>
 
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="recruiter_pain_points"
+								className="mb-1 block font-medium"
+							>
 								Biggest hiring pain point
 							</label>
 							<select
+								id="recruiter_pain_points"
 								name="recruiter_pain_points"
 								multiple
-								className="w-full border rounded p-2"
+								className="w-full rounded border p-2"
 							>
 								<option>Too many unqualified resumes</option>
 								<option>Candidate ghosting</option>
@@ -147,28 +158,35 @@ export default function WaitlistForm() {
 						</div>
 
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="recruiter_workflow_challenge"
+								className="mb-1 block font-medium"
+							>
 								Biggest challenge in your workflow
 							</label>
 							<input
-								type="text"
+								id="recruiter_workflow_challenge"
 								name="recruiter_workflow_challenge"
-								className="w-full border rounded p-2"
+								type="text"
+								className="w-full rounded border p-2"
 							/>
 						</div>
 					</>
 				)}
 
-				{/* Candidate-specific */}
 				{role === "Candidate" && (
 					<>
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="candidate_status"
+								className="mb-1 block font-medium"
+							>
 								Are you actively looking or open to opportunities?
 							</label>
 							<select
+								id="candidate_status"
 								name="candidate_status"
-								className="w-full border rounded p-2"
+								className="w-full rounded border p-2"
 							>
 								<option>Actively looking</option>
 								<option>Open to opportunities</option>
@@ -177,12 +195,16 @@ export default function WaitlistForm() {
 						</div>
 
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="candidate_interviews"
+								className="block mb-1 font-medium"
+							>
 								How many interviews have you had in the past 3 months?
 							</label>
 							<select
+								id="candidate_interviews"
 								name="candidate_interviews"
-								className="w-full border rounded p-2"
+								className="w-full rounded border p-2"
 							>
 								<option>0</option>
 								<option>1–3</option>
@@ -192,13 +214,17 @@ export default function WaitlistForm() {
 						</div>
 
 						<div>
-							<label className="block mb-1 font-medium">
+							<label
+								htmlFor="candidate_challenges"
+								className="mb-1 block font-medium"
+							>
 								Biggest challenge in your job search
 							</label>
 							<select
+								id="candidate_challenges"
 								name="candidate_challenges"
 								multiple
-								className="w-full border rounded p-2"
+								className="w-full rounded border p-2"
 							>
 								<option>Not getting interviews</option>
 								<option>Lack of recruiter responses</option>
@@ -209,24 +235,35 @@ export default function WaitlistForm() {
 						</div>
 
 						<div className="flex items-center gap-2">
-							<input type="checkbox" name="candidate_public_profile" />
-							<label>Make my profile viewable to recruiters</label>
+							<input
+								id="candidate_public_profile"
+								name="candidate_public_profile"
+								type="checkbox"
+							/>
+							<label htmlFor="candidate_public_profile">
+								Make my profile viewable to recruiters
+							</label>
 						</div>
 					</>
 				)}
 
 				{/* Founder outreach */}
 				<div className="flex items-center gap-2">
-					<input type="checkbox" name="founder_chat" />
-					<label>
+					<input id="founder_chat" type="checkbox" name="founder_chat" />
+					<label htmlFor="founder_chat">
 						I’d be open to a 15-minute chat with the Founder to share feedback
 					</label>
 				</div>
 
 				{/* Consent */}
 				<div className="flex items-center gap-2">
-					<input type="checkbox" name="consent_updates" required />
-					<label>
+					<input
+						id="consent_updates"
+						type="checkbox"
+						name="consent_updates"
+						required
+					/>
+					<label htmlFor="consent_updates">
 						I consent to receive early access updates and launch announcements.
 					</label>
 				</div>
