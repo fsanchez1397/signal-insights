@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Role } from "@/types/global";
+import type { Role } from "@/types/global";
+import { roles } from "@/types/global";
 import type { FormStatus } from "@/types/global";
 export default function WaitlistForm() {
 	const [role, setRole] = useState<Role | "">("");
@@ -86,7 +87,7 @@ export default function WaitlistForm() {
 						onChange={(e) => setRole(e.target.value as Role)}
 					>
 						<option value="">Select your role</option>
-						{Object.values(Role).map((r) => {
+						{roles.map((r) => {
 							return (
 								<option key={r} value={r}>
 									{r}
@@ -108,6 +109,7 @@ export default function WaitlistForm() {
 							<select
 								id="recruiter_roles_per_month"
 								name="recruiter_roles_per_month"
+								required
 								className="w-full rounded border p-2"
 							>
 								<option>1–5</option>
@@ -126,6 +128,7 @@ export default function WaitlistForm() {
 							<select
 								id="recruiter_top_roles"
 								name="recruiter_top_roles"
+								required
 								multiple
 								className="w-full rounded border p-2"
 							>
@@ -147,6 +150,7 @@ export default function WaitlistForm() {
 							<select
 								id="recruiter_pain_points"
 								name="recruiter_pain_points"
+								required
 								multiple
 								className="w-full rounded border p-2"
 							>
@@ -168,6 +172,7 @@ export default function WaitlistForm() {
 								id="recruiter_workflow_challenge"
 								name="recruiter_workflow_challenge"
 								type="text"
+								required
 								className="w-full rounded border p-2"
 							/>
 						</div>
@@ -186,6 +191,7 @@ export default function WaitlistForm() {
 							<select
 								id="candidate_status"
 								name="candidate_status"
+								required
 								className="w-full rounded border p-2"
 							>
 								<option>Actively looking</option>
@@ -197,13 +203,14 @@ export default function WaitlistForm() {
 						<div>
 							<label
 								htmlFor="candidate_interviews"
-								className="block mb-1 font-medium"
+								className="mb-1 block font-medium"
 							>
 								How many interviews have you had in the past 3 months?
 							</label>
 							<select
 								id="candidate_interviews"
 								name="candidate_interviews"
+								required
 								className="w-full rounded border p-2"
 							>
 								<option>0</option>
@@ -223,6 +230,7 @@ export default function WaitlistForm() {
 							<select
 								id="candidate_challenges"
 								name="candidate_challenges"
+								required
 								multiple
 								className="w-full rounded border p-2"
 							>
@@ -270,10 +278,10 @@ export default function WaitlistForm() {
 
 				<button
 					type="submit"
-					disabled={loading}
-					className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+					disabled={status === "loading"}
+					className="w-full rounded bg-blue-600 py-2 text-white hover:bg-blue-700"
 				>
-					{loading ? "Submitting..." : "Join the Waitlist"}
+					{status === "loading" ? "Submitting..." : "Join the Waitlist"}
 				</button>
 			</form>
 		);
