@@ -14,7 +14,7 @@ export default function WaitlistForm() {
 
 		const formData = new FormData(e.currentTarget); //compare this approach to useActionState
 		const body = Object.fromEntries(formData.entries());
-
+		console.log(body);
 		try {
 			const res = await fetch("/api/waitlist", {
 				method: "POST",
