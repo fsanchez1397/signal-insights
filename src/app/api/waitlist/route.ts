@@ -27,19 +27,37 @@ const waitlistSchema = z.object({
 export async function GET(request: NextRequest) {}
 export async function Post(req: NextRequest) {
 	try {
-		const body = await req.json();
-		console.log(body);
-		const parsed = waitlistSchema.safeParse(body);
-		if (!parsed) {
+		const raw = await req.json();
+		const normalized = {
+			...raw,
+			candidate_public_profile: raw.candidate_public_profile === "on",
+			founder_chat: raw.founder_chat === "on",
+			consent_updates: raw.consent_updates === "on",
+		};
+		const parsed = waitlistSchema.safeParse(normalized);
+		if (!parsed.success) {
 			return NextResponse.json(
 				{
 					error: "Invalid input",
-					// details: parsed.error.format(),
+					details: parsed.error.format(),
 				},
 				{ status: 400 },
 			);
 		}
-		const fields = parsed.data;
+		const res = await fetch(
+			`https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_NAME}`,
+			{
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${process.env.AIRTABLE_TOKEN}`,
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ fields: parsed.data }),
+			},
+		);
+		const data = await res.json();
+		return NextResponse.json({ success: true, airtableId: data.id });
+
 		/**
          const airtableRes = await fetch(
       `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Waitlist`,

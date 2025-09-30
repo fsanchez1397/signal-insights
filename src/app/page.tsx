@@ -1,11 +1,10 @@
 import Accordion from "@/components/Accordion";
-import Customers from "@/components/Customers";
 import Download from "@/components/Download";
 import Features from "@/components/Features";
 import Hero from "@/components/Hero";
-import Section from "@/components/Section";
 import { siteConfig } from "@/constants";
 import Banner from "@/components/Banner";
+import WaitlistForm from "@/components/forms/WaitlistForm";
 
 export default function HomePage() {
 	return (
@@ -21,18 +20,17 @@ export default function HomePage() {
 			<Banner
 				heading={
 					<>
-						Join <span className="text-blue-400 font-bold">recruiters</span>,
-						<span className="text-green-400 font-bold"> clients</span>, and
-						<span className="text-yellow-300 font-bold"> candidates</span>{" "}
+						Join <span className="font-bold text-blue-400">recruiters</span>,
+						<span className="font-bold text-green-400"> clients</span>, and
+						<span className="font-bold text-yellow-300"> candidates</span>{" "}
 						already signing up to shape the future of hiring.
 					</>
 				}
 				src="/images/banner.avif"
 			/>
 			<Accordion />
-			{/*
-			Form
-			 */}
+
+			<WaitlistForm />
 		</main>
 	);
 }
