@@ -5,9 +5,8 @@ const RoleEnum = z.enum(roles);
 
 const baseWaitlistSchema = z.object({
 	// Universal fields (Required by z.string().email(), etc.)
-	email: z.string().email("Invalid email address."),
+	email: z.email("Invalid email address."),
 	linkedin: z
-		.string()
 		.url("Invalid URL.")
 		.startsWith(
 			"https://www.linkedin.com/",
@@ -29,6 +28,85 @@ const baseWaitlistSchema = z.object({
 	// Other Optional Fields
 	founder_chat: z.boolean().optional(),
 	consent_updates: z.boolean(), // Still required, as it has no .optional()
+});
+// Build a schema that enforces different required fields depending on role.
+// We start with the common/base schema then `superRefine` to add role-specific checks.
+const waitlistSchema = baseWaitlistSchema.superRefine((data, ctx) => {
+	// Helper to check "string or array" fields for presence/non-empty
+	const hasStringOrArray = (v: unknown) => {
+		if (typeof v === "string") return v.trim().length > 0;
+		if (Array.isArray(v)) return v.length > 0;
+		return false;
+	};
+
+	if (data.role === "Recruiter") {
+		if (
+			!data.recruiter_roles_per_month ||
+			String(data.recruiter_roles_per_month).trim() === ""
+		) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["recruiter_roles_per_month"],
+				message: "This field is required for recruiters.",
+			});
+		}
+
+		if (!hasStringOrArray(data.recruiter_top_roles)) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["recruiter_top_roles"],
+				message:
+					"Please provide at least one top role (string or array) for recruiters.",
+			});
+		}
+
+		if (!hasStringOrArray(data.recruiter_pain_points)) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["recruiter_pain_points"],
+				message: "Please provide at least one pain point for recruiters.",
+			});
+		}
+
+		if (
+			!data.recruiter_workflow_challenge ||
+			String(data.recruiter_workflow_challenge).trim() === ""
+		) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["recruiter_workflow_challenge"],
+				message: "This field is required for recruiters.",
+			});
+		}
+	} else if (data.role === "Candidate") {
+		if (!data.candidate_status || String(data.candidate_status).trim() === "") {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["candidate_status"],
+				message: "This field is required for candidates.",
+			});
+		}
+
+		if (
+			!data.candidate_interviews ||
+			String(data.candidate_interviews).trim() === ""
+		) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["candidate_interviews"],
+				message: "This field is required for candidates.",
+			});
+		}
+
+		if (!hasStringOrArray(data.candidate_challenges)) {
+			ctx.addIssue({
+				code: z.ZodIssueCode.custom,
+				path: ["candidate_challenges"],
+				message:
+					"Please provide at least one challenge (string or array) for candidates.",
+			});
+		}
+	}
 });
 // const waitlistSchema = z.object({
 // 	email: z.string().email(),
