@@ -192,7 +192,7 @@ export default function WaitlistForm() {
 							id="candidate_status"
 							name="candidate_status"
 							required
-							className="w-full rounded border p-2"
+							className="w-full rounded border bg-black p-2"
 						>
 							<option>Actively looking</option>
 							<option>Open to opportunities</option>
@@ -211,7 +211,7 @@ export default function WaitlistForm() {
 							id="candidate_interviews"
 							name="candidate_interviews"
 							required
-							className="w-full rounded border p-2"
+							className="w-full rounded border bg-black p-2"
 						>
 							<option>0</option>
 							<option>1–3</option>
@@ -232,7 +232,7 @@ export default function WaitlistForm() {
 							name="candidate_challenges"
 							required
 							multiple
-							className="w-full rounded border p-2"
+							className="w-full rounded border bg-red-300 p-2"
 						>
 							<option>Not getting interviews</option>
 							<option>Lack of recruiter responses</option>

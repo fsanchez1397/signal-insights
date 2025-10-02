@@ -44,27 +44,30 @@ const waitlistSchema = baseWaitlistSchema.superRefine((data, ctx) => {
 			!data.recruiter_roles_per_month ||
 			String(data.recruiter_roles_per_month).trim() === ""
 		) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+			ctx.issues.push({
+				code: "custom",
 				path: ["recruiter_roles_per_month"],
 				message: "This field is required for recruiters.",
+				input: ctx.value,
 			});
 		}
 
 		if (!hasStringOrArray(data.recruiter_top_roles)) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+			ctx.issues.push({
+				code: "custom",
 				path: ["recruiter_top_roles"],
 				message:
 					"Please provide at least one top role (string or array) for recruiters.",
+				input: ctx.value,
 			});
 		}
 
 		if (!hasStringOrArray(data.recruiter_pain_points)) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+			ctx.issues.push({
+				code: "custom",
 				path: ["recruiter_pain_points"],
 				message: "Please provide at least one pain point for recruiters.",
+				input: ctx.value,
 			});
 		}
 
@@ -72,18 +75,20 @@ const waitlistSchema = baseWaitlistSchema.superRefine((data, ctx) => {
 			!data.recruiter_workflow_challenge ||
 			String(data.recruiter_workflow_challenge).trim() === ""
 		) {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+			ctx.issues.push({
+				code: "custom",
 				path: ["recruiter_workflow_challenge"],
-				message: "This field is required for recruiters.",
+				message: `This field is required for recruiters. ${ctx.value}`,
+				input: ctx.value,
 			});
 		}
 	} else if (data.role === "Candidate") {
 		if (!data.candidate_status || String(data.candidate_status).trim() === "") {
-			ctx.addIssue({
-				code: z.ZodIssueCode.custom,
+			ctx.issues.push({
+				code: "custom",
 				path: ["candidate_status"],
 				message: "This field is required for candidates.",
+				input: ctx.value,
 			});
 		}
 
