@@ -6,12 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -34,6 +31,10 @@ model User {
   Meeting        Meeting[]
   Account        Account[]
   Session        Session[]
+
+	// Back-relations for data capture
+	interactions   Interaction[]
+	notes          Note[]
 }
 
 model Job {
@@ -72,6 +73,19 @@ model Candidate {
   AssistantTask   AssistantTask[]
   Meeting         Meeting[]
 
+  // AI-generated insight fields (MVP)
+  ai_summary         String?
+  ai_strengths       String?
+  ai_weaknesses      String?
+  ai_tags            String[]       @default([])
+  ai_confidence      Float?
+  ai_needs_review    Boolean        @default(false)
+  last_ai_updated_at DateTime?
+
+  // Captured data relations
+  interactions     Interaction[]
+  notes            Note[]
+
   @@index([email])
 }
 
@@ -84,6 +98,7 @@ model Client {
 
 enum UserRole {
   recruiter
+  hiring_manager
   admin
 }
 
@@ -217,6 +232,8 @@ model Settings {
   working_hours       Json?
   auto_send_followups Boolean  @default(false)
   allowed_labels      Json?
+  allowed_senders     String[] @default([])
+  ai_confidence_threshold Float? // Optional global threshold for auto actions
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 }
@@ -277,4 +294,58 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// --- MVP data capture additions ---
+// Captures any candidate-related touchpoint (manual or automated)
+model Interaction {
+  id            String            @id @default(cuid())
+  candidate_id  String
+  candidate     Candidate         @relation(fields: [candidate_id], references: [id])
+  user_id       String?
+  user          User?             @relation(fields: [user_id], references: [id])
+  source        InteractionSource
+  type          InteractionType
+  occurredAt    DateTime          @default(now())
+  payload       Json?
+  createdAt     DateTime          @default(now())
+
+  @@index([candidate_id])
+  @@index([user_id])
+}
+
+enum InteractionSource {
+  manual
+  gmail
+  zoom
+  linkedin
+  ats
+  other
+}
+
+enum InteractionType {
+  email
+  call
+  meeting
+  note
+  other
+}
+
+// Free-form notes attached to a candidate, authored by a user.
+model Note {
+  id            String    @id @default(cuid())
+  candidate_id  String
+  candidate     Candidate @relation(fields: [candidate_id], references: [id])
+  author_id     String
+  author        User      @relation(fields: [author_id], references: [id])
+  content       String
+  is_private    Boolean   @default(false)
+  ai_generated  Boolean   @default(false)
+  ai_confidence Float?
+  needs_review  Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([candidate_id])
+  @@index([author_id])
 }
