@@ -6,18 +6,19 @@ import { db } from "@/server/db";
 
 // Schema that validates creation payloads while keeping snake_case concerns internal.
 const candidateCreateSchema = z.object({
-	id: z.string().min(1, "jobId is required"),
+	id: z.string().min(1, "ID is required"),
 	name: z.string().min(1, "name is required"),
-	email: z.string().email().optional(),
-	source: z.nativeEnum(Sources).default(Sources.email),
-	status: z.nativeEnum(CandidateStatus).optional(),
+	email: z.email().optional(),
+	source: z.enum(Sources).default(Sources.email),
+	status: z.enum(CandidateStatus).optional(),
 	aiSummary: z.string().optional(),
 	aiStrengths: z.string().optional(),
 	aiWeaknesses: z.string().optional(),
 	aiTags: z.array(z.string()).optional(),
 	aiConfidence: z.number().min(0).max(1).optional(),
 	aiNeedsReview: z.boolean().optional(),
-	lastAiUpdatedAt: z.string().datetime().optional(),
+	lastAiUpdatedAt: z.iso.datetime().optional(),
+	jobId: z.string().min(1, "jobId is required"),
 });
 
 // Helper to convert camelCase payload keys into the Prisma schema field names.
@@ -39,7 +40,7 @@ const mapCreatePayload = (input: z.infer<typeof candidateCreateSchema>) => {
 			: undefined,
 		job: {
 			connect: {
-				id: input.id,
+				id: input.jobId,
 			},
 		},
 	} satisfies Prisma.CandidateCreateInput;
@@ -47,6 +48,7 @@ const mapCreatePayload = (input: z.infer<typeof candidateCreateSchema>) => {
 
 // Handles listing candidates with optional search filters.
 export async function GET(req: NextRequest) {
+	console.log(req.url)
 	const url = new URL(req.url);
 	const filters = {
 		q: url.searchParams.get("q") ?? undefined,
@@ -59,7 +61,7 @@ export async function GET(req: NextRequest) {
 	const filterSchema = z.object({
 		q: z.string().optional(),
 		jobId: z.string().optional(),
-		status: z.nativeEnum(CandidateStatus).optional(),
+		status: z.enum(CandidateStatus).optional(),
 		needsReview: z.enum(["true", "false"]).optional(),
 		limit: z.coerce.number().int().min(1).max(200).optional(),
 	});

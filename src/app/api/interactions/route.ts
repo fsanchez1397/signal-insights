@@ -11,7 +11,7 @@ const interactionSchema = z.object({
 	source: z.nativeEnum(InteractionSource).default(InteractionSource.manual),
 	type: z.nativeEnum(InteractionType).default(InteractionType.other),
 	occurredAt: z.string().datetime().optional(),
-	payload: z.record(z.any()).optional(),
+	payload: z.record(z.string(), z.any()).optional(),
 });
 
 // Returns the most recent interactions filtered by candidate or user.
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
 				occurredAt: parsed.data.occurredAt
 					? new Date(parsed.data.occurredAt)
 					: undefined,
-				payload: parsed.data.payload,
+				payload: parsed.data.payload as Prisma.InputJsonValue | undefined,
 			},
 		});
 
@@ -83,4 +83,3 @@ export async function POST(req: NextRequest) {
 		return NextResponse.json({ error: "Server error" }, { status: 500 });
 	}
 }
-
