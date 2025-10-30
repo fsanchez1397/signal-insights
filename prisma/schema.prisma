@@ -39,6 +39,7 @@ model User {
 
 model Job {
   id           String    @id @default(cuid())
+  slug         String    @unique
   user         User      @relation(fields: [recruiter_id], references: [id])
   recruiter_id String
   client       Client?   @relation(fields: [client_id], references: [id])
@@ -59,6 +60,7 @@ model Job {
 
 model Candidate {
   id              String           @id @default(cuid())
+  slug            String           @unique
   job_id          String
   job             Job              @relation(fields: [job_id], references: [id])
   name            String
@@ -91,6 +93,7 @@ model Candidate {
 
 model Client {
   id   String @id @default(cuid())
+  slug String @unique
   name String
 
   jobs Job[]

@@ -14,6 +14,13 @@ const listJobsSchema = z.object({
 
 const createJobSchema = z.object({
 	recruiterId: z.string().min(1, "recruiterId is required"),
+	slug: z
+		.string()
+		.min(1, "slug is required")
+		.regex(
+			/^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+			"slug must be lowercase letters, numbers, and hyphens",
+		),
 	title: z.string().min(1, "title is required"),
 	description: z.string().min(1, "description is required"),
 	status: z.nativeEnum(JobStatus).optional(),
@@ -76,13 +83,22 @@ export async function POST(req: NextRequest) {
 			);
 		}
 
-		const { recruiterId, title, description, status, clientId } = parsed.data;
+		const { recruiterId, slug, title, description, status, clientId } =
+			parsed.data;
 
 		const recruiter = await db.user.findUnique({ where: { id: recruiterId } });
 		if (!recruiter) {
 			return NextResponse.json(
 				{ error: "Recruiter not found" },
 				{ status: 404 },
+			);
+		}
+
+		const existingSlug = await db.job.findUnique({ where: { slug } });
+		if (existingSlug) {
+			return NextResponse.json(
+				{ error: "Job slug already exists" },
+				{ status: 409 },
 			);
 		}
 
@@ -98,6 +114,7 @@ export async function POST(req: NextRequest) {
 
 		const job = await db.job.create({
 			data: {
+				slug,
 				title,
 				description,
 				status: status ?? undefined,
