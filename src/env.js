@@ -7,12 +7,34 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
-    // AUTH_SECRET:
-    // 	process.env.NODE_ENV === "production"
-    // 		? z.string()
-    // 		: z.string().optional(),
-    // AUTH_DISCORD_ID: z.string(),
-    // AUTH_DISCORD_SECRET: z.string(),
+    AUTH_SECRET:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    AUTH_GOOGLE_ID:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    AUTH_GOOGLE_SECRET:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    AUTH_LINKEDIN_ID:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    AUTH_LINKEDIN_SECRET:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    AUTH_APPLE_ID:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
+    AUTH_APPLE_SECRET:
+      process.env.NODE_ENV === "production"
+        ? z.string()
+        : z.string().optional(),
     DATABASE_URL: z.string().url(),
     DIRECT_URL: z.string().url(),
     NODE_ENV: z
@@ -35,9 +57,13 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
-    // AUTH_SECRET: process.env.AUTH_SECRET,
-    // AUTH_DISCORD_ID: process.env.AUTH_DISCORD_ID,
-    // AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
+    AUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+    AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    AUTH_LINKEDIN_ID: process.env.AUTH_LINKEDIN_ID,
+    AUTH_LINKEDIN_SECRET: process.env.AUTH_LINKEDIN_SECRET,
+    AUTH_APPLE_ID: process.env.AUTH_APPLE_ID,
+    AUTH_APPLE_SECRET: process.env.AUTH_APPLE_SECRET,
     DATABASE_URL: process.env.DATABASE_URL,
     DIRECT_URL: process.env.DIRECT_URL,
     NODE_ENV: process.env.NODE_ENV,
