@@ -17,8 +17,9 @@ export async function GET(
 	request: NextRequest,
 	{ params }: { params: { taskId: string } },
 ) {
+	const {taskId} = await params;
 	const task = await db.assistantTask.findUnique({
-		where: { id: params.taskId },
+		where: { id: taskId },
 		include: {
 			candidate: { select: { id: true, name: true, email: true } },
 			job: { select: { id: true, title: true } },

@@ -73,9 +73,9 @@ export async function PATCH(
 				{ status: 400 },
 			);
 		}
-
+        const { candidateId } = await params;
 		const updated = await db.candidate.update({
-			where: { id: params.candidateId },
+			where: { id: candidateId },
 			data: mapUpdatePayload(parsed.data),
 		});
 
